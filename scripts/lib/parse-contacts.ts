@@ -48,7 +48,7 @@ export function parseContactFile(filename: string, content: string): ParseContac
   let companyName: string | null = null;
   let roleTitle: string | null = null;
   if (companyLineMatch) {
-    companyName = companyLineMatch[1].trim().split(/\s*[-–(]/)[0].trim() || null;
+    companyName = companyLineMatch[1].trim().split(/\s*[-–—(]/)[0].trim() || null;
   } else {
     const roleLineMatch = infoSection.match(/^-\s*Role\s*:\s*(.+)$/mi);
     if (roleLineMatch) {

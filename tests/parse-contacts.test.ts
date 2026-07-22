@@ -73,4 +73,26 @@ describe('parseContactFile', () => {
     expect(contact.notes).toContain('Northgate School Accounting');
     expect(contact.notes).toContain('Follow up if no response by');
   });
+
+  it('splits the company name on an em dash separator', () => {
+    const nils = `# Nils Ostberg
+**Last updated:** 2026-07-15
+**Status:** Active
+
+## Info
+- Role / Company: Meridian Labs — Operations (since May 2026)
+- Contact: nils@meridianlabs.example
+
+## Related
+- Referred by: —
+
+## Conversation History
+- 2026-07-15: Cold intro sent
+
+## Follow-ups
+- —
+`;
+    const { contact } = parseContactFile('nils-ostberg.md', nils);
+    expect(contact.companyName).toBe('Meridian Labs');
+  });
 });
