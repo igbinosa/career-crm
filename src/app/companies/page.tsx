@@ -18,6 +18,7 @@ export default function CompaniesPage() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- load() only sets state after its await resolves, not synchronously
     load();
   }, []);
 

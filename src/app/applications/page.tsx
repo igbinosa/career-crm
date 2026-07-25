@@ -16,6 +16,7 @@ export default function ApplicationsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: reset loading state before refetch on stageFilter change
     setLoading(true);
     const url = stageFilter ? `/api/applications?stage=${stageFilter}` : '/api/applications';
     fetch(url)

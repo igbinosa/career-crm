@@ -40,9 +40,20 @@ async function main() {
     }
 
     const update: Record<string, unknown> = { stage };
-    if (stage === 'applied') update.applied_at = new Date().toISOString();
+    if (stage === 'applied') {
+      update.applied_at = new Date().toISOString();
+      update.source = 'agent';
+    }
     if (stage === 'escalated' && note !== undefined) update.escalation_note = note;
-    else if (note !== undefined) update.notes = note;
+    else if (note !== undefined) {
+      const { data: existing, error: fetchError } = await db
+        .from('applications')
+        .select('notes')
+        .eq('id', id)
+        .single();
+      if (fetchError) throw new Error(fetchError.message);
+      update.notes = existing?.notes ? `${existing.notes}\n${note}` : note;
+    }
     if (stage === 'assessment_pending' && deadline !== undefined) update.assessment_deadline = deadline;
 
     const { error } = await db.from('applications').update(update).eq('id', id);
