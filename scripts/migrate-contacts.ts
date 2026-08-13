@@ -3,9 +3,11 @@ config({ path: '.env.local' });
 
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { parseContactFile } from './lib/parse-contacts';
 
-const DIR = '/Users/USER/claude-workspace/notes/network';
+// Override with NOTES_DIR to point at a vault in a different location.
+const DIR = process.env.NOTES_DIR ?? path.join(os.homedir(), 'claude-workspace', 'notes', 'network');
 const SKIP_FILES = new Set(['_template.md', 'draft-log.md', 'golden-examples.md', 'reactivation-list.md']);
 
 async function main() {

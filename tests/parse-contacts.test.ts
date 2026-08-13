@@ -7,10 +7,10 @@ const dana = `# Dana Whitfield
 
 ## Info
 - Role: Managing Partner, Northgate Ventures (University Fund)
-- Contact: via Alumni Ventures — https://example.com/people/dana-whitfield
+- Contact: via Northgate — https://example.com/people/dana-whitfield
 
 ## Related
-- Projects: [[xaman]]
+- Projects: [[sample-project]]
 - Referred by: —
 
 ## Conversation History
@@ -36,10 +36,10 @@ const robin = `# Robin Ellery (Meridian Labs)
 - Company thread: [[nils-ostberg]]
 
 ## Conversation History
-- Jul 15, 2026: Cold intro sent from USC email
+- Jul 15, 2026: Cold intro sent from school email
 
 ## Context / Notes
-- GI now has multiple concurrent threads
+- Multiple concurrent threads at this company
 
 ## Follow-ups
 - Follow-up due ~Jul 25-29 if no reply, only with something genuinely new.
@@ -70,7 +70,7 @@ describe('parseContactFile', () => {
 
   it('preserves the full file body in notes as a non-lossy safety net', () => {
     const { contact } = parseContactFile('dana-whitfield.md', dana);
-    expect(contact.notes).toContain('Northgate School Accounting');
+    expect(contact.notes).toContain('accounting programs');
     expect(contact.notes).toContain('Follow up if no response by');
   });
 

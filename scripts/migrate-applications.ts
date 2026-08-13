@@ -2,9 +2,14 @@ import { config } from 'dotenv';
 config({ path: '.env.local' });
 
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
 import { parseApplicationsMarkdown } from './lib/parse-applications';
 
-const SOURCE = '/Users/USER/claude-workspace/notes/projects/job-applications.md';
+// Override with APPLICATIONS_FILE to point at a vault in a different location.
+const SOURCE =
+  process.env.APPLICATIONS_FILE ??
+  path.join(os.homedir(), 'claude-workspace', 'notes', 'projects', 'job-applications.md');
 
 async function main() {
   const dryRun = process.argv.includes('--dry-run');

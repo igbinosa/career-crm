@@ -2,9 +2,14 @@ import { config } from 'dotenv';
 config({ path: '.env.local' });
 
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
 import { parseDraftLogMarkdown } from './lib/parse-interactions';
 
-const SOURCE = '/Users/USER/claude-workspace/notes/network/draft-log.md';
+// Override with DRAFT_LOG_FILE to point at a vault in a different location.
+const SOURCE =
+  process.env.DRAFT_LOG_FILE ??
+  path.join(os.homedir(), 'claude-workspace', 'notes', 'network', 'draft-log.md');
 
 async function main() {
   const dryRun = process.argv.includes('--dry-run');
