@@ -81,3 +81,14 @@ from contacts c
 where c.status in ('active','dormant')
   and (c.last_touch_date is null or c.last_touch_date <= current_date - interval '90 days')
 order by c.last_touch_date asc nulls first;
+
+-- Deny-by-default. The app only talks to the database server-side with the
+-- service-role key, which bypasses RLS, so no policies are needed. With RLS on
+-- and no policies, the public anon role can read and write nothing.
+alter table companies enable row level security;
+alter table contacts enable row level security;
+alter table applications enable row level security;
+alter table interactions enable row level security;
+
+-- Views run with their owner's rights by default, which would skip RLS.
+alter view reactivation_queue set (security_invoker = true);

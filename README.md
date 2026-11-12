@@ -87,7 +87,7 @@ Apply [`supabase/schema.sql`](supabase/schema.sql) to a fresh Supabase project t
 
 ## Known limits
 
-- Row Level Security is not enabled. The app is single-user and every query runs server-side under the service-role key, so RLS adds nothing today, but it would be required before any second user existed.
+- Row Level Security is enabled on every table with no policies, so the database denies everything to the public anon role. The app works because every query runs server-side under the service-role key, which bypasses RLS. A second user would need real per-user policies.
 - The passcode comparison is a plain string equality check, not constant-time.
 - There is no dashboard view. `/` redirects to `/apply`.
 
